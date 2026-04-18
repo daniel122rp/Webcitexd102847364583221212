@@ -1,4 +1,8 @@
-require('dotenv').config();
+try {
+  require('dotenv').config();
+} catch (e) {
+  console.warn('[startup] dotenv no está instalado; usando variables del entorno del host');
+}
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
@@ -666,4 +670,8 @@ app.post('/admin/discounts', requireAuth, requireAdmin, (req, res) => {
 });
 app.post('/admin/discounts/:id/delete', requireAuth, requireAdmin, (req, res) => { deleteDiscount(req.params.id); setFlash(req, 'warning', 'Código eliminado.'); res.redirect('/admin'); });
 app.use((_, res) => res.status(404).render('error', { title: 'Página no encontrada', message: 'Esta página no existe.' }));
+app.get('/health', (_req, res) => {
+  res.status(200).send('ok');
+});
+
 app.listen(PORT, () => console.log(`Store running on ${BASE_URL}`));

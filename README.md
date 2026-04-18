@@ -76,3 +76,10 @@ Luego en Railway:
 - define `BASE_URL` con tu dominio público de Railway
 
 No subas `.env` ni `node_modules` a GitHub.
+
+
+## Railway quick fix
+
+- `server.js` ya no se cae si `dotenv` no está instalado en el host.
+- Hay una ruta de healthcheck en `/health`.
+- Configura las variables en Railway en vez de subir tu `.env`.
