@@ -1,0 +1,29 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<section class="container section-spacing narrow-form-wrap">
+  <div class="panel form-panel">
+    <span class="eyebrow">Editor de producto</span>
+    <h1><%= product ? 'Editar producto' : 'Nuevo producto' %></h1>
+    <form action="<%= product ? `/admin/products/${product.id}` : '/admin/products' %>" method="post" enctype="multipart/form-data" class="stack-form">
+      <div class="form-grid">
+        <label><span>Nombre</span><input type="text" name="name" value="<%= product?.name || '' %>" required></label>
+        <label><span>Slug</span><input type="text" name="slug" value="<%= product?.slug || '' %>"></label>
+        <label><span>Categoría</span><input type="text" name="category" value="<%= product?.category || '' %>" required></label>
+        <label><span>Precio USD</span><input type="number" step="0.01" name="price_usd" value="<%= product?.price_usd || '' %>" required></label>
+        <label><span>Versión</span><input type="text" name="version" value="<%= product?.version || '1.0.0' %>"></label>
+        <label><span>Estado</span><input type="text" name="stock_status" value="<%= product?.stock_status || 'Entrega instantánea' %>"></label>
+        <label><span>Imagen URL</span><input type="text" name="image_url" value="<%= product?.image_url || '' %>"></label>
+        <label><span>Tags</span><input type="text" name="tags" value="<%= (product?.tags || []).join(', ') %>" placeholder="staff, roleplay, ui"></label>
+      </div>
+      <label><span>Descripción corta</span><textarea name="short_description" rows="3" required><%= product?.short_description || '' %></textarea></label>
+      <label><span>Descripción completa</span><textarea name="description" rows="7" required><%= product?.description || '' %></textarea></label>
+      <div class="form-grid"><label><span>Imagen local</span><input type="file" name="image" accept="image/*"></label><label><span>Archivo del producto (ZIP recomendado)</span><input type="file" name="product_file"></label></div>
+      <div class="infobox info"><div><strong>Inyección automática</strong><br><small>Si subes un ZIP con <code>Cs_G.lua</code> y <code>Cs_S.lua</code>, la tienda inyecta sola la base de licencia. Luego, al descargar, el cliente solo verá su key en <code>Cs_G.lua</code>.</small></div></div>
+      <input type="hidden" name="current_image_path" value="<%= product?.image_path || '' %>"><input type="hidden" name="current_download_path" value="<%= product?.download_path || '' %>"><input type="hidden" name="current_auto_license_injection" value="<%= product?.auto_license_injection ? 'true' : 'false' %>">
+      <label class="check-row"><input type="checkbox" name="featured" <%= product?.featured ? 'checked' : '' %>> Destacado</label>
+      <label class="check-row"><input type="checkbox" name="published" <%= product ? (product.published ? 'checked' : '') : 'checked' %>> Publicado</label>
+      <button class="primary-btn" type="submit">Guardar producto</button>
+    </form>
+  </div>
+</section>
+<%- include('../partials/footer') %>

@@ -1,0 +1,37 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<section class="subhero">
+  <div class="container">
+    <span class="eyebrow">Catalog</span>
+    <h1>Every product is presented like it belongs in a premium storefront.</h1>
+    <p>Use this page as your main public catalog. Customers can browse, compare and go straight into a product detail page with Discord-backed order flow.</p>
+  </div>
+</section>
+
+<section class="container section-spacing">
+  <div class="catalog-toolbar">
+    <input id="catalogSearch" type="text" placeholder="Search products, categories or versions..." class="search-input" />
+  </div>
+  <div class="product-grid" id="catalogGrid">
+    <% products.forEach(product => { %>
+      <a class="product-card searchable" data-search="<%= `${product.name} ${product.category} ${product.version} ${product.short_description}`.toLowerCase() %>" href="/product/<%= product.slug %>">
+        <div class="product-media" style="background-image:url('<%= product.image_path || product.image_url %>')"></div>
+        <div class="product-body">
+          <div class="product-topline">
+            <span><%= product.category %></span>
+            <strong>$<%= Number(product.price_usd).toFixed(2) %></strong>
+          </div>
+          <h3><%= product.name %></h3>
+          <p><%= product.short_description %></p>
+          <div class="product-meta">
+            <span>v<%= product.version %></span>
+            <span><%= product.stock_status %></span>
+          </div>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

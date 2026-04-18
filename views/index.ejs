@@ -1,0 +1,55 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<section class="hero hero-tight">
+  <div class="container hero-shell minimal-hero">
+    <div class="hero-copy-col">
+      <span class="eyebrow">CS STORE</span>
+      <h1>No solo brindamos un servicio, brindamos calidad.</h1>
+      <p class="hero-copy">Desplazate por nuestro catalogo y observa lo que tenemos para ti.</p>
+      <div class="hero-actions">
+        <a href="#catalog" class="primary-btn">Ver catálogo</a>
+        <a href="/dashboard" class="ghost-btn">Abrir panel cliente</a>
+      </div>
+      <% if (activeDiscounts.length) { const first = activeDiscounts[0]; %>
+        <div class="coupon-banner">
+          <div>
+            <small>Código destacado</small>
+            <strong><%= first.code %></strong>
+            <p><%= first.banner_text || 'Disponible ahora mismo para tus clientes.' %></p>
+          </div>
+          <button class="ghost-btn small copy-btn" type="button" data-copy="<%= first.code %>">Copiar código</button>
+        </div>
+      <% } %>
+    </div>
+    <div class="hero-side compact-grid">
+      <div class="hero-metric-card"><small>Destacados</small><strong><%= featuredProducts.length %></strong></div>
+      <div class="hero-metric-card"><small>Categorías</small><strong><%= categories.length %></strong></div>
+      <div class="hero-metric-card large"><small>Caracteristicas</small><ul><li>Seguridad</li><li>Confianza</li><li>Soporte 24/7</li><li>Responsabilidad</li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="container store-toolbar" id="catalog">
+  <div><span class="eyebrow">Catálogo</span><h2>Aqui podras ver todos nuestros productos</h2></div>
+  <div class="toolbar-controls">
+    <input id="catalogSearch" class="search-input" type="search" placeholder="Busca nombre, categoría o tags..." />
+    <select id="catalogCategory" class="filter-select"><option value="all">Todas las categorías</option><% categories.forEach(category => { %><option value="<%= category %>"><%= category %></option><% }) %></select>
+    <select id="catalogSort" class="filter-select"><option value="featured">Destacados primero</option><option value="price-asc">Precio menor a mayor</option><option value="price-desc">Precio mayor a menor</option><option value="newest">Más recientes</option></select>
+  </div>
+</section>
+<section class="container section-spacing">
+  <div class="product-grid" id="catalogGrid">
+    <% products.forEach(product => { %>
+      <article class="product-card searchable" data-category="<%= product.category %>" data-price="<%= product.price_usd %>" data-featured="<%= product.featured ? 1 : 0 %>" data-created="<%= product.created_at %>" data-search="<%= `${product.name} ${product.category} ${(product.tags || []).join(' ')} ${product.short_description}`.toLowerCase() %>">
+        <a href="/product/<%= product.slug %>" class="product-media" style="background-image:url('<%= product.image %>')"></a>
+        <div class="product-body">
+          <div class="product-topline"><span><%= product.category %></span><strong>$<%= Number(product.price_usd).toFixed(2) %></strong></div>
+          <h3><a href="/product/<%= product.slug %>"><%= product.name %></a></h3>
+          <p><%= product.short_description %></p>
+          <div class="tag-row"><% (product.tags || []).slice(0,3).forEach(tag => { %><span class="tag"><%= tag %></span><% }) %></div>
+          <div class="product-actions-row"><a class="ghost-btn small" href="/product/<%= product.slug %>">Detalles</a><form action="/cart/add" method="post"><input type="hidden" name="product_id" value="<%= product.id %>" /><button class="primary-btn small" type="submit">Agregar</button></form></div>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+</section>
+<%- include('partials/footer') %>

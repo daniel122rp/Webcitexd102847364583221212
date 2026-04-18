@@ -1,0 +1,138 @@
+{
+  "users": [
+    {
+      "id": "19f363ac-09ef-4d96-aaad-b25704f416aa",
+      "created_at": "2026-03-09T04:41:54.674Z",
+      "master_license_key": "CS-VM1MRUY1C5DVPGFUNEYSYLOZF0RJQ",
+      "discord_id": "994262667449618493",
+      "username": "null.dn",
+      "global_name": ".NullZK",
+      "avatar": "14823c4f1f7386ee68ff5818b8b6365a",
+      "email": "rangerroche18@gmail.com",
+      "is_admin": true,
+      "updated_at": "2026-03-30T03:05:54.465Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "f18bbc3c-5fb5-43cc-91c6-ff554429883c",
+      "slug": "mapeo-comisaria",
+      "name": "Mapeo Comisaria",
+      "category": "Script",
+      "price_usd": 20,
+      "short_description": "Mapeo",
+      "description": "Mapeo Mta",
+      "image_url": "",
+      "image_path": "",
+      "download_path": "",
+      "auto_license_injection": false,
+      "version": "1.0.0",
+      "stock_status": "Entrega instantánea",
+      "featured": false,
+      "published": true,
+      "tags": [],
+      "created_at": "2026-03-27T23:01:47.500Z",
+      "updated_at": "2026-03-27T23:01:47.500Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "5848a82e-943c-4816-8c75-0e7465246648",
+      "order_number": "ORD-31352488",
+      "user_id": "19f363ac-09ef-4d96-aaad-b25704f416aa",
+      "paypal_order_id": "7VF16384B85043204",
+      "status": "Pagada",
+      "subtotal_usd": 20,
+      "discount_code": "",
+      "discount_type": "",
+      "discount_value": 0,
+      "discount_amount_usd": 0,
+      "total_usd": 20,
+      "customer_name": "Null",
+      "customer_email": "rangerroche18@gmail.com",
+      "customer_discord": "null.dn",
+      "notes": "",
+      "items": [
+        {
+          "product_id": "379cdd19-a924-47be-8efd-f98f86cb15dd",
+          "quantity": 1,
+          "price_usd": 20,
+          "name": "Panel Prisionero",
+          "slug": "panel-prisionero"
+        }
+      ],
+      "created_at": "2026-03-09T04:42:32.488Z",
+      "updated_at": "2026-03-09T04:42:48.354Z",
+      "paid_at": "2026-03-09T04:42:48.354Z",
+      "capture_id": "6D060525F8693035S"
+    },
+    {
+      "id": "d003d574-32cb-4685-aa26-354c150a9405",
+      "order_number": "ORD-00174597",
+      "user_id": "19f363ac-09ef-4d96-aaad-b25704f416aa",
+      "paypal_order_id": "2YV54185UN359313L",
+      "status": "Esperando pago",
+      "subtotal_usd": 18,
+      "discount_code": "",
+      "discount_type": "",
+      "discount_value": 0,
+      "discount_amount_usd": 0,
+      "total_usd": 18,
+      "customer_name": "Null",
+      "customer_email": "rangerroche18@gmail.com",
+      "customer_discord": "null.dn",
+      "notes": "",
+      "items": [
+        {
+          "product_id": "edf05d1e-619c-45ba-866d-f6935f8b2f0d",
+          "quantity": 1,
+          "price_usd": 18,
+          "name": "Neo Login Panel",
+          "slug": "neo-login-panel"
+        }
+      ],
+      "created_at": "2026-03-09T23:49:34.597Z",
+      "updated_at": "2026-03-09T23:49:36.276Z",
+      "paid_at": null,
+      "capture_id": ""
+    }
+  ],
+  "licenses": [
+    {
+      "id": "18855878-7f0d-4077-80d1-71acff82bda5",
+      "key": "CS-VM1MRUY1C5DVPGFUNEYSYLOZF0RJQ",
+      "shared_key": "CS-VM1MRUY1C5DVPGFUNEYSYLOZF0RJQ",
+      "user_id": "19f363ac-09ef-4d96-aaad-b25704f416aa",
+      "order_id": "5848a82e-943c-4816-8c75-0e7465246648",
+      "product_id": "379cdd19-a924-47be-8efd-f98f86cb15dd",
+      "bound_ip": "10.0.0.16:22003",
+      "note": "",
+      "status": "active",
+      "activations": 5,
+      "created_at": "2026-03-09T04:42:48.356Z",
+      "updated_at": "2026-03-10T00:48:16.516Z"
+    }
+  ],
+  "discounts": [
+    {
+      "id": "1d1f9f7a-07c7-448b-af63-e1574c85d751",
+      "code": "BIENVENDOS20",
+      "type": "percent",
+      "value": 20,
+      "active": true,
+      "banner_text": "Usa BIENVENIDOS20 para un 20% de descuento",
+      "created_at": "2026-03-09T23:38:18.593Z",
+      "updated_at": "2026-03-09T23:38:18.593Z"
+    },
+    {
+      "id": "5abe40a5-7c42-41f4-be20-45d90b37fdc0",
+      "code": "MTA20",
+      "type": "percent",
+      "value": 20,
+      "active": true,
+      "banner_text": "USA MTA PARA TENER UN 20 DE DESCUENTO",
+      "created_at": "2026-03-27T23:00:53.166Z",
+      "updated_at": "2026-03-27T23:00:53.166Z"
+    }
+  ]
+}

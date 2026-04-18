@@ -1,0 +1,36 @@
+<header class="site-header">
+  <div class="container nav-row">
+    <a href="/" class="brand-mark">
+      <span class="brand-badge">CS</span>
+      <span>
+        <strong><%= storeName %></strong>
+        <small><%= storeTagline %></small>
+      </span>
+    </a>
+    <nav class="desktop-nav">
+      <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Tienda</a>
+      <a href="/cart" class="<%= currentPath === '/cart' ? 'active' : '' %>">Carrito <span class="nav-count"><%= cartCount %></span></a>
+      <% if (currentUser) { %>
+        <a href="/dashboard" class="<%= currentPath.startsWith('/dashboard') ? 'active' : '' %>">Panel cliente</a>
+        <% if (currentUser.is_admin) { %><a href="/admin" class="<%= currentPath.startsWith('/admin') ? 'active' : '' %>">Admin</a><% } %>
+      <% } %>
+    </nav>
+    <div class="nav-actions">
+      <% if (currentUser) { %>
+        <div class="profile-pill">
+          <img src="<%= currentUser.avatar_url %>" alt="avatar" />
+          <div>
+            <strong><%= currentUser.display_name %></strong>
+            <small><%= currentUser.is_admin ? 'Acceso administrador' : 'Cuenta de cliente' %></small>
+          </div>
+        </div>
+        <form action="/logout" method="post"><button class="ghost-btn small" type="submit">Salir</button></form>
+      <% } else { %>
+        <a href="/auth/discord" class="discord-btn">Entrar con Discord</a>
+      <% } %>
+    </div>
+  </div>
+</header>
+<% if (flash) { %>
+  <div class="container"><div class="infobox <%= flash.type %>"><span><%= flash.text %></span><button type="button" class="infobox-close" data-close-infobox>✕</button></div></div>
+<% } %>

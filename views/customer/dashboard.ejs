@@ -1,0 +1,80 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<section class="container section-spacing">
+  <div class="section-head slim">
+    <div>
+      <span class="eyebrow">Panel cliente</span>
+      <h1>Tus compras, licencias y descargas</h1>
+      <p class="muted">Todos tus scripts usan la misma key maestra. Descarga cada producto ya preparado y coloca tu key en <code>Cs_G.lua</code>.</p>
+    </div>
+  </div>
+
+  <div class="client-shell">
+    <div class="panel">
+      <div class="client-products-head">
+        <div>
+          <h2>Productos comprados</h2>
+          <p class="muted">Busca rápido entre tus productos y descárgalos ya listos para configurar.</p>
+        </div>
+        <input id="licenseSearch" class="search-input" type="text" placeholder="Buscar en tus productos...">
+      </div>
+
+      <div class="owned-grid" id="ownedGrid">
+        <% if (!licenses.length) { %>
+          <p class="muted">Tus productos aparecerán aquí después del pago.</p>
+        <% } %>
+        <% licenses.forEach(license => { %>
+          <article class="owned-card" data-name="<%= (license.product?.name || '').toLowerCase() %>">
+            <div class="owned-thumb" style="background-image:url('<%= license.product?.image || '/placeholder.svg' %>')">
+              <span class="owned-badge">Producto individual</span>
+            </div>
+            <div class="owned-body">
+              <h3><%= license.product?.name || 'Producto' %></h3>
+              <p><%= license.product?.short_description || 'Producto premium listo para usar en tu servidor.' %></p>
+              <div class="owned-meta">Adquirido: <%= new Date(license.created_at).toLocaleDateString('es-DO') %></div>
+              <div class="owned-actions">
+                <a class="primary-btn small" href="/download/<%= license.id %>">Descargar <%= license.product?.name || 'script' %></a>
+              </div>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    </div>
+
+    <aside class="client-aside">
+      <div class="panel side-card">
+        <h3>Clave de licencia</h3>
+        <div class="side-key-box">
+          <code><%= sharedKey || (licenses[0]?.key || '') %></code>
+          <button class="primary-btn small copy-btn" type="button" data-copy="<%= sharedKey || (licenses[0]?.key || '') %>">Copiar</button>
+        </div>
+        <small class="muted">Esta misma key funciona en todos tus scripts comprados.</small>
+      </div>
+
+      <div class="panel side-card">
+        <h3>Configuración de red</h3>
+        <% if (licenses.length) { %>
+          <form class="stack-form license-network-form" action="/licenses/<%= licenses[0].id %>/ip" method="post">
+            <label><span>IP:PUERTO global</span><input type="text" name="ip" value="<%= sharedIp || '' %>" placeholder="151.243.93.145:22003"></label>
+            <button class="primary-btn small" type="submit">Guardar cambios</button>
+          </form>
+          <small class="muted">La misma IP se aplica a todos tus scripts comprados.</small>
+        <% } else { %>
+          <p class="muted">Compra un producto para configurar tu servidor.</p>
+        <% } %>
+      </div>
+
+</section>
+<script>
+  const search = document.getElementById('licenseSearch');
+  const cards = Array.from(document.querySelectorAll('.owned-card'));
+  if (search) {
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      cards.forEach(card => {
+        card.style.display = card.dataset.name.includes(q) ? '' : 'none';
+      });
+    });
+  }
+</script>
+<%- include('../partials/footer') %>

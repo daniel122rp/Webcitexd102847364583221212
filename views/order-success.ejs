@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<section class="container section-spacing center-card-wrap">
+  <div class="success-card">
+    <span class="eyebrow">Order received</span>
+    <h1>Your request has been created.</h1>
+    <p>Use the order number below when you follow up through Discord or staff chat.</p>
+    <div class="order-number"><%= order.order_number %></div>
+    <div class="detail-capsules stack">
+      <span>Product <strong><%= product.name %></strong></span>
+      <span>Status <strong><%= order.status %></strong></span>
+      <span>Created <strong><%= new Date(order.created_at).toLocaleString() %></strong></span>
+    </div>
+    <a href="/catalog" class="primary-btn">Back to catalog</a>
+  </div>
+</section>
+<%- include('partials/footer') %>

@@ -1,0 +1,41 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<section class="container section-spacing two-col-layout">
+  <div>
+    <span class="eyebrow">Checkout</span>
+    <h1>Carrito de compras</h1>
+    <% if (!cartItems.length) { %>
+      <div class="panel empty-state"><p>No has agregado scripts todavía.</p><a href="/" class="primary-btn">Volver a la tienda</a></div>
+    <% } else { %>
+      <div class="stack-list">
+        <% cartItems.forEach(item => { %>
+          <article class="cart-item panel">
+            <div class="cart-item-info"><strong><%= item.product.name %></strong><small><%= item.product.category %> · $<%= Number(item.product.price_usd).toFixed(2) %></small></div>
+            <div class="cart-item-actions">
+              <form action="/cart/update" method="post" class="inline-form"><input type="hidden" name="product_id" value="<%= item.product_id %>" /><input class="qty-input" type="number" min="1" name="quantity" value="<%= item.quantity %>" /><button class="ghost-btn small" type="submit">Actualizar</button></form>
+              <form action="/cart/remove" method="post"><input type="hidden" name="product_id" value="<%= item.product_id %>" /><button class="ghost-btn small danger-outline" type="submit">Quitar</button></form>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+  <aside class="panel summary-card">
+    <span class="eyebrow">Resumen</span>
+    <div class="summary-line"><span>Subtotal</span><strong>$<%= Number(subtotal).toFixed(2) %></strong></div>
+    <div class="summary-line"><span>Descuento</span><strong>- $<%= Number(discountResult.amount || 0).toFixed(2) %></strong></div>
+    <div class="summary-line total"><span>Total</span><strong>$<%= Number(discountResult.total || subtotal).toFixed(2) %></strong></div>
+    <form action="/cart/apply-discount" method="post" class="stack-form compact-form">
+      <label><span>Código de descuento</span><input type="text" name="discount_code" value="<%= appliedDiscountCode %>" placeholder="Ej: BIENVENIDO10"></label>
+      <button class="ghost-btn" type="submit">Aplicar descuento</button>
+    </form>
+    <p class="muted">Cuando PayPal confirme el pago, el panel de cliente genera las keys, desbloquea la descarga y te deja guardar la IP del servidor.</p>
+    <% if (cartItems.length) { %>
+      <% if (currentUser) { %>
+        <form action="/checkout/paypal/create" method="post" class="stack-form"><textarea name="notes" rows="4" placeholder="Notas opcionales sobre tu pedido o tu servidor"></textarea><button class="primary-btn" type="submit" <%= !paypalConfigured ? 'disabled' : '' %>>Pagar con PayPal</button></form>
+        <% if (!paypalConfigured) { %><p class="muted">Configura PAYPAL_CLIENT_ID y PAYPAL_CLIENT_SECRET en .env para activar el checkout.</p><% } %>
+      <% } else { %><a href="/auth/discord" class="discord-btn">Entrar con Discord para pagar</a><% } %>
+    <% } %>
+  </aside>
+</section>
+<%- include('partials/footer') %>

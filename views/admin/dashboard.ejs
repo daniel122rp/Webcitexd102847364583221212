@@ -1,0 +1,18 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<section class="container section-spacing">
+  <div class="section-head admin-head"><div><span class="eyebrow">Admin</span><h1>Productos, ventas y descuentos</h1></div><a href="/admin/products/new" class="primary-btn">Nuevo producto</a></div>
+  <div class="stats-grid">
+    <div class="panel stat-card"><small>Productos</small><strong><%= stats.totalProducts %></strong></div>
+    <div class="panel stat-card"><small>Publicados</small><strong><%= stats.liveProducts %></strong></div>
+    <div class="panel stat-card"><small>Órdenes</small><strong><%= stats.totalOrders %></strong></div>
+    <div class="panel stat-card"><small>Pagadas</small><strong><%= stats.paidOrders %></strong></div>
+    <div class="panel stat-card"><small>Descuentos</small><strong><%= stats.totalDiscounts %></strong></div>
+  </div>
+  <div class="dashboard-grid">
+    <div class="panel"><h2>Productos</h2><div class="stack-list compact"><% products.forEach(product => { %><article class="admin-product-row"><div><strong><%= product.name %></strong><small><%= product.category %> · $<%= Number(product.price_usd).toFixed(2) %> · <%= product.published ? 'Publicado' : 'Oculto' %></small></div><div class="row-actions"><a class="ghost-btn small" href="/admin/products/<%= product.id %>/edit">Editar</a><form action="/admin/products/<%= product.id %>/delete" method="post"><button class="ghost-btn small danger-outline" type="submit">Borrar</button></form></div></article><% }) %></div></div>
+    <div class="panel"><h2>Descuentos</h2><form action="/admin/discounts" method="post" class="stack-form compact-form"><div class="form-grid"><label><span>Código</span><input type="text" name="code" placeholder="VERANO20" required></label><label><span>Tipo</span><select name="type"><option value="percent">Porcentaje</option><option value="fixed">Monto fijo</option></select></label><label><span>Valor</span><input type="number" step="0.01" name="value" required></label><label><span>Texto del banner</span><input type="text" name="banner_text" placeholder="Usa VERANO20 y ahorra 20%"></label></div><label class="check-row"><input type="checkbox" name="active" checked> Activo</label><button class="primary-btn" type="submit">Crear descuento</button></form><div class="stack-list compact"><% discounts.forEach(discount => { %><article class="admin-product-row"><div><strong><%= discount.code %></strong><small><%= discount.type === 'percent' ? discount.value + '%' : '$' + Number(discount.value).toFixed(2) %> · <%= discount.active ? 'Activo' : 'Inactivo' %></small></div><div class="row-actions"><button class="ghost-btn small copy-btn" type="button" data-copy="<%= discount.code %>">Copiar</button><form action="/admin/discounts/<%= discount.id %>/delete" method="post"><button class="ghost-btn small danger-outline" type="submit">Borrar</button></form></div></article><% }) %></div></div>
+  </div>
+  <div class="panel"><h2>Órdenes recientes</h2><div class="stack-list compact"><% orders.forEach(order => { %><article class="order-card"><div><strong><%= order.order_number %></strong><small><%= order.customer_name %> · <%= order.status %> · $<%= Number(order.total_usd || order.subtotal_usd).toFixed(2) %></small></div><div class="order-items-inline"><% order.items.forEach(item => { %><span class="tag"><%= item.name %></span><% }) %></div></article><% }) %></div></div>
+</section>
+<%- include('../partials/footer') %>
